@@ -2,7 +2,7 @@ version: '2'
 
 services:
   s3fs:
-    image: xueshanf/s3fs:latest
+    image: anthonymag/s3fs-httpd:latest
     environment:
       AWSACCESSKEYID: FOOBAR
       AWSSECRETACCESSKEY: FOOBARBAZ
@@ -14,5 +14,5 @@ services:
     devices:
       - /dev/fuse
     volumes:
-      - /mnt/mydata:/mnt:shared
-    command: /usr/bin/s3fs -f -o allow_other -o use_cache=/tmp S3_BUCKET_NAME /mnt/
+      - /var/lib/S3_BUCKET_NAME:/usr/local/apache2/htdocs/:shared
+    command: /usr/bin/s3fs -f -o allow_other -o use_cache=/tmp S3_BUCKET_NAME /usr/local/apache2/htdocs/

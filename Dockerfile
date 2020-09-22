@@ -1,5 +1,5 @@
-FROM ubuntu:16.04
-MAINTAINER Xueshan Feng <xueshan.feng@gmail.com>
+FROM httpd:2.4
+LABEL MAINTAINER="Anthony Magalhaes"
 
 ENV VERSION 1.83
 
@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
  pkg-config \
  && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/s3fs-fuse/s3fs-fuse/archive/v${VERSION}.tar.gz | tar zxv -C /usr/src
+RUN curl -L https://github.com/s3fs-fuse/s3fs-fuse/archive/v${VERSION}.tar.gz --insecure | tar zxv -C /usr/src
 RUN cd /usr/src/s3fs-fuse-${VERSION} && ./autogen.sh && ./configure --prefix=/usr && make && make install
 
 CMD ["/bin/bash"]
